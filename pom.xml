@@ -6,7 +6,7 @@
 
     <groupId>uk.co.mikeberinger</groupId>
     <artifactId>site-report-placeholder</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <packaging>maven-plugin</packaging>
 
     <properties>
@@ -69,13 +69,39 @@
                 <groupId>${project.groupId}</groupId>
                 <artifactId>${project.artifactId}</artifactId>
                 <version>${project.version}</version>
-                <configuration>
-                    <reportName>Allure</reportName>
-                    <reportDescription>Allure report published after our test suites have been run</reportDescription>
-                    <reportLocation>allure-results/index</reportLocation>
-<!--                    <placeholderNoRedirect>true</placeholderNoRedirect>-->
-<!--                    <skip>true</skip>-->
-                </configuration>
+<!--                <configuration>-->
+<!--                    <reportName>Lighthouse</reportName>-->
+<!--                    <reportDescription>Lighthouse report published after our test suites have been run</reportDescription>-->
+<!--                    <reportLocation>lighthouse-results/index</reportLocation>-->
+<!--                    &lt;!&ndash;                                                <placeholderNoRedirect>true</placeholderNoRedirect>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                    <skip>true</skip>&ndash;&gt;-->
+<!--                </configuration>-->
+                <reportSets>
+                    <reportSet>
+                        <configuration>
+                            <reportName>Allure</reportName>
+                            <reportDescription>Allure report published after our test suites have been run</reportDescription>
+                            <reportLocation>allure-results/index</reportLocation>
+<!--                            <placeholderNoRedirect>true</placeholderNoRedirect>-->
+<!--                            <skip>true</skip>-->
+                        </configuration>
+                        <reports>
+                            <report>site-report-placeholder</report>
+                        </reports>
+                    </reportSet>
+                    <reportSet>
+                        <configuration>
+                            <reportName>Lighthouse</reportName>
+                            <reportDescription>Lighthouse report published after our accessibility tests have been run</reportDescription>
+                            <reportLocation>lighthouse-results/index</reportLocation>
+<!--                            <placeholderNoRedirect>true</placeholderNoRedirect>-->
+<!--                            <skip>true</skip>-->
+                        </configuration>
+                        <reports>
+                            <report>site-report-placeholder</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
             </plugin>
         </plugins>
     </reporting>

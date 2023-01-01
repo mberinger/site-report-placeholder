@@ -10,7 +10,7 @@ This Maven site report plugin will generate a placeholder for a report that gets
         <plugin>
             <groupId>uk.co.mikeberinger</groupId>
             <artifactId>site-report-placeholder</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
             <configuration>
                 <reportName>Allure</reportName>
                 <reportDescription>Allure report published after our test suites have been run</reportDescription>
@@ -19,6 +19,38 @@ This Maven site report plugin will generate a placeholder for a report that gets
         </plugin>
     </plugins>
 </reporting>
+```
+
+If you have a set of reports:
+
+```xml
+<plugin>
+    <groupId>uk.co.mikeberinger</groupId>
+    <artifactId>site-report-placeholder</artifactId>
+    <version>1.0.1</version>
+    <reportSets>
+        <reportSet>
+            <configuration>
+                <reportName>Allure</reportName>
+                <reportDescription>Allure report published after our test suites have been run</reportDescription>
+                <reportLocation>allure-results/index</reportLocation>
+            </configuration>
+            <reports>
+                <report>site-report-placeholder</report>
+            </reports>
+        </reportSet>
+        <reportSet>
+            <configuration>
+                <reportName>Lighthouse</reportName>
+                <reportDescription>Lighthouse report published after our accessibility tests have been run</reportDescription>
+                <reportLocation>lighthouse-results/index</reportLocation>
+            </configuration>
+            <reports>
+                <report>site-report-placeholder</report>
+            </reports>
+        </reportSet>
+    </reportSets>
+</plugin>
 ```
 
 ## Options

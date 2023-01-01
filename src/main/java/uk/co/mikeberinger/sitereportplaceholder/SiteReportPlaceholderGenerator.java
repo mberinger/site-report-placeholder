@@ -1,14 +1,18 @@
 package uk.co.mikeberinger.sitereportplaceholder;
 
 import org.apache.maven.doxia.sink.Sink;
+import org.apache.maven.model.ReportPlugin;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
+import org.apache.maven.project.MavenProject;
 import org.apache.maven.reporting.AbstractMavenReport;
 
+import javax.inject.Inject;
 import java.util.Locale;
+import java.util.UUID;
 
 import static java.lang.String.format;
 
@@ -24,7 +28,7 @@ import static java.lang.String.format;
 )
 public class SiteReportPlaceholderGenerator extends AbstractMavenReport {
 
-    private static final String PLACEHOLDER_FILENAME = "site-report-placeholder";
+    private String placeholderFilename = "site-report-placeholder";
 
     /**
      * The name of your report
@@ -56,9 +60,21 @@ public class SiteReportPlaceholderGenerator extends AbstractMavenReport {
     @Parameter( property = "skip" )
     private boolean skip;
 
+    @Inject
+    public SiteReportPlaceholderGenerator(MavenProject mavenProject) {
+        ReportPlugin thisPlugin = mavenProject.getReporting()
+                .getReportPluginsAsMap()
+                .get("uk.co.mikeberinger:site-report-placeholder");
+        // if the plugin has multiple report sets configured, append a unique suffix to avoid filename clash
+        if (!thisPlugin.getReportSets()
+                .isEmpty()) {
+            placeholderFilename += "-" + UUID.randomUUID();
+        }
+    }
+
     public String getOutputName() {
         // the page that is linked to from project-reports.html
-        return placeholderNoRedirect ? reportLocation : PLACEHOLDER_FILENAME;
+        return placeholderNoRedirect ? reportLocation : placeholderFilename;
     }
 
     public String getName(Locale locale) {
