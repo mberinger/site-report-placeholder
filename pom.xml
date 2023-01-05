@@ -6,7 +6,7 @@
 
     <groupId>uk.co.mikeberinger</groupId>
     <artifactId>site-report-placeholder</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <packaging>maven-plugin</packaging>
 
     <properties>
@@ -69,33 +69,49 @@
                 <groupId>${project.groupId}</groupId>
                 <artifactId>${project.artifactId}</artifactId>
                 <version>${project.version}</version>
-<!--                <configuration>-->
-<!--                    <reportName>Lighthouse</reportName>-->
-<!--                    <reportDescription>Lighthouse report published after our test suites have been run</reportDescription>-->
-<!--                    <reportLocation>lighthouse-results/index</reportLocation>-->
-<!--                    &lt;!&ndash;                                                <placeholderNoRedirect>true</placeholderNoRedirect>&ndash;&gt;-->
-<!--                    &lt;!&ndash;                    <skip>true</skip>&ndash;&gt;-->
-<!--                </configuration>-->
                 <reportSets>
                     <reportSet>
+                        <id>existing-report-scenario-1</id>
                         <configuration>
-                            <reportName>Allure</reportName>
-                            <reportDescription>Allure report published after our test suites have been run</reportDescription>
-                            <reportLocation>allure-results/index</reportLocation>
-<!--                            <placeholderNoRedirect>true</placeholderNoRedirect>-->
-<!--                            <skip>true</skip>-->
+                            <reportName>Existing report scenario 1</reportName>
+                            <reportDescription>Placeholder loads report within iframe</reportDescription>
+                            <reportLocation>existing-report/index</reportLocation>
                         </configuration>
                         <reports>
                             <report>site-report-placeholder</report>
                         </reports>
                     </reportSet>
                     <reportSet>
+                        <id>existing-report-scenario-2</id>
                         <configuration>
-                            <reportName>Lighthouse</reportName>
-                            <reportDescription>Lighthouse report published after our accessibility tests have been run</reportDescription>
-                            <reportLocation>lighthouse-results/index</reportLocation>
-<!--                            <placeholderNoRedirect>true</placeholderNoRedirect>-->
-<!--                            <skip>true</skip>-->
+                            <reportName>Existing report scenario 2</reportName>
+                            <reportDescription>Placeholder redirects to existing report</reportDescription>
+                            <reportLocation>existing-report/index</reportLocation>
+                            <redirectNoIframe>true</redirectNoIframe>
+                        </configuration>
+                        <reports>
+                            <report>site-report-placeholder</report>
+                        </reports>
+                    </reportSet>
+                    <reportSet>
+                        <id>existing-report-scenario-3</id>
+                        <configuration>
+                            <reportName>Existing report scenario 3</reportName>
+                            <reportDescription>Report already exists so no placeholder is created</reportDescription>
+                            <reportLocation>existing-report/index</reportLocation>
+                            <placeholderNoRedirect>true</placeholderNoRedirect>
+                        </configuration>
+                        <reports>
+                            <report>site-report-placeholder</report>
+                        </reports>
+                    </reportSet>
+                    <reportSet>
+                        <id>missing-report-scenario</id>
+                        <configuration>
+                            <reportName>Missing report scenario</reportName>
+                            <reportDescription>Report not available yet so placeholder created</reportDescription>
+                            <reportLocation>missing-report</reportLocation>
+                            <placeholderNoRedirect>true</placeholderNoRedirect>
                         </configuration>
                         <reports>
                             <report>site-report-placeholder</report>
